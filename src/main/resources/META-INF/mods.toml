@@ -1,0 +1,54 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="GNU GPL v3.0"
+issueTrackerURL="mailto:3848394903@qq.com"
+
+[[mods]]
+modId="survivor"
+version="1.0.0"
+displayName="Survivor Stand Addon"
+logoFile="survivor.png"
+logoBlur=true
+authors="Grasshopper"
+credits="Grasshopper (Author) | Support: https://ifdian.net/a/mazaNB666"
+description='''
+Survivor - A JoJo Stand addon by Grasshopper.
+
+This addon adds the Survivor Stand from JoJo's Bizarre Adventure Part 6: Stone Ocean to Ripples of the Past.
+
+Survivor is the Stand of Guccio. It is an automatic, remote Stand with no physical form of its own. It channels a weak electrical current through wet surfaces, stimulating the limbic system of anyone standing on them and amplifying their aggression to the point where they attack anyone nearby - friend or foe.
+
+Features:
+- Summon the Survivor Stand with no visible body, only its effect on the environment.
+- Automatic activation through wet blocks (water, rain, ice, snow).
+- Amplify the aggression of nearby mobs and players, making them attack anyone indiscriminately.
+- Visual feedback on affected targets.
+- Custom sounds and particle effects.
+
+Support me on Afdian:
+https://ifdian.net/a/mazaNB666
+
+Contact: 3848394903@qq.com
+'''
+
+[[dependencies.survivor]]
+modId="forge"
+mandatory=true
+versionRange="[36,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.survivor]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5,1.17)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.survivor]]
+modId="jojo"
+mandatory=true
+versionRange="[0.2,)"
+ordering="AFTER"
+side="BOTH"
+

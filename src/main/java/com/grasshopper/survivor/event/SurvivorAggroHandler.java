@@ -30,7 +30,7 @@ public class SurvivorAggroHandler {
         List<PlayerEntity> users = world.getEntitiesOfClass(PlayerEntity.class,
                 entity.getBoundingBox().inflate(AGGRO_RANGE),
                 player -> IStandPower.getStandPowerOptional(player).resolve()
-                        .map(power -> power.getType().getRegistryName().getPath().equals("survivor"))
+                        .map(power -> power.hasPower() && power.getType().getRegistryName().getPath().equals("survivor"))
                         .orElse(false));
 
         if (users.isEmpty()) return;

@@ -1,6 +1,5 @@
 package com.grasshopper.survivor.event;
 
-import com.github.standobyte.jojo.power.impl.stand.IStandPower;
 import com.grasshopper.survivor.SurvivorMain;
 import com.grasshopper.survivor.util.AngerHelper;
 import com.grasshopper.survivor.util.WetHelper;
@@ -30,16 +29,12 @@ public class PlayerAttackHandler {
         if (!WetHelper.isWet(player)) return;
         if (!AngerHelper.isAngry(player)) return;
 
-        boolean isSurvivorUser = IStandPower.getStandPowerOptional(player).resolve()
-                .map(power -> power.getType().getRegistryName().getPath().equals("survivor"))
-                .orElse(false);
+        boolean isSurvivorUser = MobAggroHandler.isSurvivorUser(player, false);
         if (isSurvivorUser) return;
 
         boolean nearSurvivor = player.level.getEntitiesOfClass(PlayerEntity.class,
                         player.getBoundingBox().inflate(SURVIVOR_RANGE),
-                        p -> IStandPower.getStandPowerOptional(p).resolve()
-                                .map(power -> power.getType().getRegistryName().getPath().equals("survivor"))
-                                .orElse(false))
+                        p -> MobAggroHandler.isSurvivorUser(p, true))
                 .size() > 0;
 
         if (!nearSurvivor) return;

@@ -41,13 +41,13 @@ public class MobAggroHandler {
 
         List<PlayerEntity> users = world.getEntitiesOfClass(PlayerEntity.class,
                 mob.getBoundingBox().inflate(SURVIVOR_RANGE),
-                player -> isSurvivorUser(player));
+                player -> isSurvivorUser(player, true));
 
         if (users.isEmpty()) return;
 
         LivingEntity target = mob.getTarget();
 
-        if (target instanceof PlayerEntity && isSurvivorUser((PlayerEntity) target)) {
+        if (target instanceof PlayerEntity && isSurvivorUser((PlayerEntity) target, false)) {
             mob.setTarget(null);
             target = null;
         }
@@ -55,7 +55,7 @@ public class MobAggroHandler {
         if (target == null || !target.isAlive() || mob.distanceTo(target) > TARGET_RANGE) {
             List<LivingEntity> targets = world.getEntitiesOfClass(LivingEntity.class,
                     mob.getBoundingBox().inflate(TARGET_RANGE),
-                    e -> e != mob && e.isAlive() && !(e instanceof PlayerEntity && isSurvivorUser((PlayerEntity) e)));
+                    e -> e != mob && e.isAlive() && !(e instanceof PlayerEntity && isSurvivorUser((PlayerEntity) e, false)));
 
             if (targets.isEmpty()) return;
 
@@ -73,9 +73,9 @@ public class MobAggroHandler {
         }
     }
 
-    private static boolean isSurvivorUser(PlayerEntity player) {
+    public static boolean isSurvivorUser(PlayerEntity player, boolean checkSummon) {
         return IStandPower.getStandPowerOptional(player).resolve()
-                .map(power -> power.getType().getRegistryName().getPath().equals("survivor"))
+                .map(power -> power.hasPower() && power.getType().getRegistryName().getPath().equals("survivor") && (!checkSummon || power.isActive()))
                 .orElse(false);
     }
 }
